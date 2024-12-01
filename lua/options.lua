@@ -19,8 +19,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+-- Disable sync with system clipboard if SSH
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = vim.env.SSH_TTY and "" or 'unnamedplus'
 end)
 
 -- Enable break indent
@@ -63,3 +64,24 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Command-line completion mode
+vim.opt.wildmode = "longest:full,full"
+
+-- Ensure all folds are opened when a file is opened
+vim.opt.foldlevel = 99
+-- Replace fill chars for folding
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+
+-- Set default spellchecking language to English
+vim.opt.spelllang = "en"
+
+ -- Hide * markup for bold and italic, but not markers with substitutions
+vim.opt.conceallevel = 0
